@@ -86,6 +86,23 @@
       border: 1px solid #ccc;
     }
 
+    /* 🎨 CORES */
+    .input-prenda {
+      background: #ffe6ef;
+      border: 1px solid #ff99bb;
+    }
+
+    .input-peao {
+      background: #e6f0ff;
+      border: 1px solid #77aaff;
+    }
+
+    .input-danca {
+      background: #fff6db;
+      border: 1px solid #ffcc66;
+      font-weight: bold;
+    }
+
     .btn-add {
       margin-top: 10px;
       background: #ff7a00;
@@ -94,10 +111,6 @@
       color: white;
       border-radius: 8px;
       cursor: pointer;
-    }
-
-    .btn-add:hover {
-      background: #cc5f00;
     }
 
     .btn-remove {
@@ -109,8 +122,16 @@
       cursor: pointer;
     }
 
-    .btn-remove:hover {
-      background: darkred;
+    /* SUPLENTE */
+    .suplente {
+      background: #fff3cd !important;
+      border: 2px solid #ff9900;
+    }
+
+    .tag-suplente {
+      color: red;
+      font-size: 13px;
+      font-weight: bold;
     }
 
     .btn-submit {
@@ -123,10 +144,6 @@
       font-size: 18px;
       border-radius: 12px;
       cursor: pointer;
-    }
-
-    .btn-submit:hover {
-      background: #cc5f00;
     }
 
     footer {
@@ -143,18 +160,20 @@
 <header>
   <div class="header-top">
     <img src="https://raw.githubusercontent.com/CCN1989/Imagens/refs/heads/main/Logo%20pequeno.png">
+
     <div>
       <h2>25º Rodeio Nativista de Esteio</h2>
       <p>Centro de Tradições Gaúchas Chama Nativa</p>
       <p><b>Ficha de Inscrição - Modalidades Individuais</b></p>
+      <p>(2 Titulares + 1 Suplente por Categoria)</p>
     </div>
+
     <img src="https://github.com/CCN1989/Imagens/blob/main/12RT.png?raw=true">
   </div>
 </header>
 
 <main>
 
-  <!-- Dados Entidade -->
   <div class="section-title">Dados da Entidade</div>
 
   <div class="category-box">
@@ -174,7 +193,6 @@
     </table>
   </div>
 
-  <!-- Modalidades Render -->
   <div id="modalidades"></div>
 
   <button class="btn-submit">Enviar Inscrição</button>
@@ -182,9 +200,8 @@
 </main>
 
 <footer>
-  CTG Chama Nativa © 2026
+  Sistema de incrição - CTG Chama Nativa © 2026 - dúvidas secretaria@ctgchamanativa.com.br
 </footer>
-
 
 <script>
   const categorias = ["Pré-Mirim", "Mirim", "Juvenil", "Adulta", "Veterana", "Xirú"];
@@ -194,7 +211,7 @@
     { nome: "Declamação", id: "declamacao", tipo: "declamacao" },
     { nome: "Intérprete Vocal", id: "vocal", tipo: "vocal" },
     { nome: "Chula", id: "chula", tipo: "chula" },
-    { nome: "Danças Tradicionais (Par)", id: "tradicional", tipo: "par" },
+    { nome: "Danças Tradicionais (Par)", id: "tradicional", tipo: "tradicional" },
     { nome: "Danças Gaúchas de Salão (Par)", id: "salao", tipo: "par" }
   ];
 
@@ -204,25 +221,33 @@
 
     if (tipo === "declamacao") {
       colunas = `
-        <th>Prenda</th><th>Cartão</th>
-        <th>Peão</th><th>Cartão</th>
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>
         <th>Amadrinhador*</th>`;
     }
 
     if (tipo === "vocal") {
       colunas = `
-        <th>Prenda</th><th>Cartão</th>
-        <th>Peão</th><th>Cartão</th>`;
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
     }
 
     if (tipo === "chula") {
-      colunas = `<th>Peão</th><th>Cartão</th>`;
+      colunas = `
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
     }
 
     if (tipo === "par") {
       colunas = `
-        <th>Prenda</th><th>Cartão</th>
-        <th>Peão</th><th>Cartão</th>`;
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
+    }
+
+    if (tipo === "tradicional") {
+      colunas = `
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>
+        <th>Dança Tradicional*</th>`;
     }
 
     let box = document.createElement("div");
@@ -230,7 +255,6 @@
 
     box.innerHTML = `
       <h3>${categoria}</h3>
-
       <table>
         <thead>
           <tr>${colunas}<th>Ação</th></tr>
@@ -240,7 +264,7 @@
 
       <button class="btn-add"
         onclick="addRow('${modId}','${categoria}','${tipo}')">
-        + Adicionar (até 3)
+        + Adicionar (até 2 titulares + 1 suplente)
       </button>
     `;
 
@@ -252,41 +276,92 @@
     let tbody = document.getElementById(`${modId}-${categoria}-body`);
 
     if (tbody.rows.length >= LIMITE) {
-      alert("Limite máximo de 3 inscrições atingido nesta categoria!");
+      alert("Limite máximo: 2 titulares + 1 suplente.");
       return;
     }
 
     let row = document.createElement("tr");
 
+    let isSuplente = (tbody.rows.length === 2);
+    if (isSuplente) row.classList.add("suplente");
+
+    let suplenteTag = isSuplente
+      ? `<div class="tag-suplente">SUPLENTE</div>`
+      : "";
+
+    let removerBtn = `<button class="btn-remove" onclick="removeRow(this)">X</button>`;
+
+    /* DECLAMAÇÃO */
     if (tipo === "declamacao") {
       row.innerHTML = `
-        <td><input></td><td><input></td>
-        <td><input></td><td><input></td>
-        <td><input required></td>
-        <td><button class="btn-remove" onclick="removeRow(this)">X</button></td>
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input required placeholder="Amadrinhador"></td>
+        <td>${removerBtn}</td>
       `;
     }
 
+    /* VOCAL */
     if (tipo === "vocal") {
       row.innerHTML = `
-        <td><input></td><td><input></td>
-        <td><input></td><td><input></td>
-        <td><button class="btn-remove" onclick="removeRow(this)">X</button></td>
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td>${removerBtn}</td>
       `;
     }
 
+    /* CHULA */
     if (tipo === "chula") {
       row.innerHTML = `
-        <td><input></td><td><input></td>
-        <td><button class="btn-remove" onclick="removeRow(this)">X</button></td>
+        <td><input class="input-peao" placeholder="Peão">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td>${removerBtn}</td>
       `;
     }
 
+    /* DANÇAS SALÃO */
     if (tipo === "par") {
       row.innerHTML = `
-        <td><input></td><td><input></td>
-        <td><input></td><td><input></td>
-        <td><button class="btn-remove" onclick="removeRow(this)">X</button></td>
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td>${removerBtn}</td>
+      `;
+    }
+
+    /* DANÇAS TRADICIONAIS */
+    if (tipo === "tradicional") {
+      row.innerHTML = `
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-danca" required placeholder="Dança Tradicional"></td>
+
+        <td>${removerBtn}</td>
       `;
     }
 
@@ -297,20 +372,17 @@
     btn.closest("tr").remove();
   }
 
-  // Renderizar tudo
+  /* Renderizar */
   const container = document.getElementById("modalidades");
 
   modalidades.forEach(mod => {
-
-    container.innerHTML += `<div class="section-title">${mod.nome} (máx. 3 por categoria)</div>`;
+    container.innerHTML += `<div class="section-title">${mod.nome}</div>`;
 
     categorias.forEach(cat => {
       container.appendChild(criarCategoria(mod.id, cat, mod.tipo));
-      addRow(mod.id, cat, mod.tipo); // linha inicial
+      addRow(mod.id, cat, mod.tipo);
     });
-
   });
-
 </script>
 
 </body>
