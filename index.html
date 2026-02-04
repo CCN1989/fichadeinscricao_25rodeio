@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ficha de Inscrição - 25º Rodeio Nativista</title>
 
-  <style>
+   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #fff7f0;
-      margin: 0;
-      padding: 0;
-    }
+  font-family: Arial, sans-serif;
+  background: #fff7f0;
+  margin: 0;
+  padding: 0;
+}
 
     header {
-      background: linear-gradient(to right, #ff7a00, #ffb347);
-      padding: 20px;
-      color: white;
-      text-align: center;
-    }
+  width: 100vw;       /* largura total da tela */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
     header img {
       width: 85px;
@@ -152,6 +152,47 @@
       font-size: 12px;
       color: gray;
     }
+
+    .regulamento-box {
+  margin-top: 20px;
+  padding: 12px;
+  background: #fff3e0;
+  border: 2px solid #ff7a00;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.regulamento-box a {
+  color: #cc5f00;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.regulamento-box a:hover {
+  text-decoration: underline;
+}
+
+.regulamento-box input[type="checkbox"] {
+  width: auto;
+  transform: scale(1.2);
+  margin-right: 8px;
+}
+
+header {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.testeira {
+  width: 100vw;        /* ocupa toda a tela */
+  max-width: 105%;     
+  height: auto;
+  display: block;
+}
+
+
+
   </style>
 </head>
 
@@ -159,14 +200,14 @@
 
 <header>
   <div class="header-top">
-    <img src="https://raw.githubusercontent.com/CCN1989/Imagens/refs/heads/main/Logo%20pequeno.png">
+    <!-- ✅ TESTEIRA IMAGEM -->
+ <header>
+  <img class="testeira"
+       src="https://raw.githubusercontent.com/CCN1989/Imagens/refs/heads/main/testeira%20ficha%20ind.png"
+       alt="Testeira Oficial">
+</header>
 
-    <div>
-      <h2>25º Rodeio Nativista de Esteio</h2>
-      <p>Centro de Tradições Gaúchas Chama Nativa</p>
-      <p><b>Ficha de Inscrição - Modalidades Individuais</b></p>
-      <p>(2 Titulares + 1 Suplente por Categoria)</p>
-    </div>
+  </div
 
     <img src="https://github.com/CCN1989/Imagens/blob/main/12RT.png?raw=true">
   </div>
@@ -186,18 +227,32 @@
         <td>RT *</td><td><input required></td>
         <td>Email *</td><td><input required></td>
       </tr>
-     <tr>
-  <td>Patrão</td><td><input></td>
-  <td>WhatsApp *</td><td><input required></td>
-</tr>
-
- <tr>
+      <tr>
+        <td>Patrão</td><td><input></td>
+        <td>WhatsApp *</td><td><input required></td>
+      </tr>
+      <tr>
         <td>Responsável Inscrição *</td>
         <td colspan="3"><input required></td>
       </tr>
-
     </table>
   </div>
+
+</div>
+
+<!-- ✅ CHECKBOX REGULAMENTO -->
+<div class="regulamento-box">
+  <label>
+    <input type="checkbox" required>
+    Declaro que li e estou de acordo com o
+    <a href="REGULAMENTO.pdf" target="_blank">
+      Regulamento Oficial do Rodeio
+    </a>.
+  </label>
+</div>
+
+<div id="modalidades"></div>
+
 
   <div id="modalidades"></div>
 
