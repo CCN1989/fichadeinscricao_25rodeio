@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-  <style>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha de Inscrição - 25º Rodeio Nativista</title>
+
+   <style>
     body {
   font-family: Arial, sans-serif;
   background: #fff7f0;
@@ -225,7 +231,7 @@ header {
     <!-- ✅ TESTEIRA IMAGEM -->
  <header>
   <img class="testeira"
-       src="https://raw.githubusercontent.com/CCN1989/Imagens/refs/heads/main/testeira%20ficha%20GRP.png"
+       src="https://raw.githubusercontent.com/CCN1989/Imagens/refs/heads/main/testeira%20ficha%20ind.png"
        alt="Testeira Oficial">
 </header>
 
@@ -273,8 +279,10 @@ header {
   </label>
 </div>
 
-  <!-- Categorias -->
-  <div id="categorias"></div>
+<div id="modalidades"></div>
+
+
+  <div id="modalidades"></div>
 
   <div class="botoes-final">
 
@@ -299,89 +307,165 @@ header {
 
 <script>
   const categorias = ["Pré-Mirim", "Mirim", "Juvenil", "Adulta", "Veterana", "Xirú"];
-  const LIMITE = 25;
+  const LIMITE = 3;
 
-  function criarCategoria(nome) {
+  const modalidades = [
+    { nome: "Declamação", id: "declamacao", tipo: "declamacao" },
+    { nome: "Intérprete Vocal", id: "vocal", tipo: "vocal" },
+    { nome: "Chula", id: "chula", tipo: "chula" },
+    { nome: "Danças Tradicionais (Par)", id: "tradicional", tipo: "tradicional" },
+    { nome: "Danças Gaúchas de Salão (Par)", id: "salao", tipo: "par" }
+  ];
+
+  function criarCategoria(modId, categoria, tipo) {
+
+    let colunas = "";
+
+    if (tipo === "declamacao") {
+      colunas = `
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>
+        <th>Amadrinhador*</th>`;
+    }
+
+    if (tipo === "vocal") {
+      colunas = `
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
+    }
+
+    if (tipo === "chula") {
+      colunas = `
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
+    }
+
+    if (tipo === "par") {
+      colunas = `
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
+    }
+
+    if (tipo === "tradicional") {
+      colunas = `
+        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
+        <th>Peão</th><th>Nascimento</th><th>Cartão</th>
+        <th>Dança Tradicional*</th>`;
+    }
 
     let box = document.createElement("div");
     box.className = "category-box";
 
     box.innerHTML = `
-      <h3>${nome}</h3>
-
-      <!-- Informações da apresentação -->
-      <table>
-        <tr>
-          <td>Dança Tradicional 1 *</td><td><input required></td>
-          <td>Dança Tradicional 2 *</td><td><input required></td>
-        </tr>
-        <tr>
-          <td>Dança Tradicional 3 *</td><td><input required></td>
-          <td>Musical *</td>
-          <td>
-            <select required>
-              <option value="">Selecione</option>
-              <option>Sim</option>
-              <option>Não</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Coreografia Avaliada *</td>
-          <td colspan="3">
-            <select required>
-              <option value="">Selecione</option>
-              <option>Entrada</option>
-              <option>Saída</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Comprovante PIX *</td>
-          <td colspan="3">
-            <input type="file" required>
-          </td>
-        </tr>
-      </table>
-
-      <!-- Integrantes -->
+      <h3>${categoria}</h3>
       <table>
         <thead>
-          <tr>
-            <th>Integrante</th>
-            <th>Nascimento</th>
-            <th>Cartão</th>
-            <th>Ação</th>
-          </tr>
+          <tr>${colunas}<th>Ação</th></tr>
         </thead>
-        <tbody id="${nome}-body"></tbody>
+        <tbody id="${modId}-${categoria}-body"></tbody>
       </table>
 
-      <button class="btn-add" onclick="addIntegrante('${nome}')">
-        + Adicionar Integrante (até 25)
+      <button class="btn-add"
+        onclick="addRow('${modId}','${categoria}','${tipo}')">
+        + Adicionar (até 2 titulares + 1 suplente)
       </button>
     `;
 
     return box;
   }
 
-  function addIntegrante(cat) {
+  function addRow(modId, categoria, tipo) {
 
-    let tbody = document.getElementById(`${cat}-body`);
+    let tbody = document.getElementById(`${modId}-${categoria}-body`);
 
     if (tbody.rows.length >= LIMITE) {
-      alert("Limite máximo: 25 integrantes por categoria.");
+      alert("Limite máximo: 2 titulares + 1 suplente.");
       return;
     }
 
     let row = document.createElement("tr");
 
-    row.innerHTML = `
-      <td><input placeholder="Nome do Integrante"></td>
-      <td><input type="date"></td>
-      <td><input placeholder="Cartão Tradicionalista"></td>
-      <td><button class="btn-remove" onclick="removeRow(this)">X</button></td>
-    `;
+    let isSuplente = (tbody.rows.length === 2);
+    if (isSuplente) row.classList.add("suplente");
+
+    let suplenteTag = isSuplente
+      ? `<div class="tag-suplente">SUPLENTE</div>`
+      : "";
+
+    let removerBtn = `<button class="btn-remove" onclick="removeRow(this)">X</button>`;
+
+    /* DECLAMAÇÃO */
+    if (tipo === "declamacao") {
+      row.innerHTML = `
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input required placeholder="Amadrinhador"></td>
+        <td>${removerBtn}</td>
+      `;
+    }
+
+    /* VOCAL */
+    if (tipo === "vocal") {
+      row.innerHTML = `
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td>${removerBtn}</td>
+      `;
+    }
+
+    /* CHULA */
+    if (tipo === "chula") {
+      row.innerHTML = `
+        <td><input class="input-peao" placeholder="Peão">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td>${removerBtn}</td>
+      `;
+    }
+
+    /* DANÇAS SALÃO */
+    if (tipo === "par") {
+      row.innerHTML = `
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td>${removerBtn}</td>
+      `;
+    }
+
+    /* DANÇAS TRADICIONAIS */
+    if (tipo === "tradicional") {
+      row.innerHTML = `
+        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-peao" placeholder="Peão"></td>
+        <td><input type="date"></td>
+        <td><input placeholder="Cartão"></td>
+
+        <td><input class="input-danca" required placeholder="Dança Tradicional"></td>
+
+        <td>${removerBtn}</td>
+      `;
+    }
 
     tbody.appendChild(row);
   }
@@ -390,15 +474,17 @@ header {
     btn.closest("tr").remove();
   }
 
-  // Renderizar categorias
-  const container = document.getElementById("categorias");
+  /* Renderizar */
+  const container = document.getElementById("modalidades");
 
-  categorias.forEach(cat => {
-    container.innerHTML += `<div class="section-title">${cat}</div>`;
-    container.appendChild(criarCategoria(cat));
-    addIntegrante(cat); // linha inicial
+  modalidades.forEach(mod => {
+    container.innerHTML += `<div class="section-title">${mod.nome}</div>`;
+
+    categorias.forEach(cat => {
+      container.appendChild(criarCategoria(mod.id, cat, mod.tipo));
+      addRow(mod.id, cat, mod.tipo);
+    });
   });
-
 </script>
 
 </body>
