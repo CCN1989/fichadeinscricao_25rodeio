@@ -1,490 +1,253 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ficha de Inscrição - 25º Rodeio Nativista</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha de Inscrição</title>
 
-   <style>
-    body {
-  font-family: Arial, sans-serif;
-  background: #fff7f0;
-  margin: 0;
-  padding: 0;
-}
+<style>
+body{font-family:Arial;background:#fff7f0;margin:0}
+header img{width:100%}
+main{max-width:1100px;margin:30px auto;background:#fff;padding:25px;border-radius:15px;box-shadow:0 0 12px rgba(0,0,0,.2)}
+.section-title{background:#ff7a00;color:#fff;padding:12px;border-radius:10px;margin-top:40px;font-size:18px}
+.category-box{border:2px solid #ffd2a8;padding:15px;border-radius:12px;margin-top:20px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ddd;padding:8px;font-size:14px;text-align:center}
+th{background:#ffe0c2}
+input,select{width:95%;padding:6px;border-radius:6px;border:1px solid #ccc}
+.input-prenda{background:#ffe6ef}
+.input-peao{background:#e6f0ff}
+.input-danca{background:#fff6db;font-weight:bold}
+.btn-add{margin-top:10px;background:#ff7a00;border:none;padding:7px 14px;color:white;border-radius:8px;cursor:pointer}
+.btn-remove{background:red;color:white;border:none;padding:5px 10px;border-radius:6px;cursor:pointer}
+.suplente{background:#fff3cd!important;border:2px solid #ff9900}
+.botoes-final{display:flex;gap:15px;margin-top:50px}
+.btn-submit,.btn-voltar{width:100%;padding:14px;background:#ff7a00;color:white;border:none;font-size:18px;border-radius:12px;cursor:pointer;text-decoration:none;text-align:center}
+.btn-submit:hover,.btn-voltar:hover{background:#ffd24d;color:#000;transition:0.2s}
 
-    header {
-  width: 100vw;       /* largura total da tela */
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-    header img {
-      width: 85px;
-    }
-
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
-    }
-
-    .section-title {
-      background: #ff7a00;
-      color: white;
-      padding: 12px;
-      border-radius: 10px;
-      margin-top: 40px;
-      font-size: 18px;
-    }
-
-    .category-box {
-      border: 2px solid #ffd2a8;
-      padding: 15px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    .category-box h3 {
-      margin: 0;
-      color: #cc5f00;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    th {
-      background: #ffe0c2;
-    }
-
-    input {
-      width: 95%;
-      padding: 6px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    /* 🎨 CORES */
-    .input-prenda {
-      background: #ffe6ef;
-      border: 1px solid #ff99bb;
-    }
-
-    .input-peao {
-      background: #e6f0ff;
-      border: 1px solid #77aaff;
-    }
-
-    .input-danca {
-      background: #fff6db;
-      border: 1px solid #ffcc66;
-      font-weight: bold;
-    }
-
-    .btn-add {
-      margin-top: 10px;
-      background: #ff7a00;
-      border: none;
-      padding: 7px 14px;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .btn-remove {
-      background: red;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* SUPLENTE */
-    .suplente {
-      background: #fff3cd !important;
-      border: 2px solid #ff9900;
-    }
-
-    .tag-suplente {
-      color: red;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .btn-submit {
-      margin-top: 50px;
-      width: 100%;
-      padding: 14px;
-      background: #ff7a00;
-      color: white;
-      border: none;
-      font-size: 18px;
-      border-radius: 12px;
-      cursor: pointer;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 12px;
-      color: gray;
-    }
-
-    .regulamento-box {
-  margin-top: 20px;
-  padding: 12px;
-  background: #fff3e0;
-  border: 2px solid #ff7a00;
-  border-radius: 10px;
-  font-size: 14px;
-}
-
-.regulamento-box a {
-  color: #cc5f00;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.regulamento-box a:hover {
-  text-decoration: underline;
-}
-
-.regulamento-box input[type="checkbox"] {
-  width: auto;
-  transform: scale(1.2);
-  margin-right: 8px;
-}
-
-header {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-.testeira {
-  width: 100vw;        /* ocupa toda a tela */
-  max-width: 105%;     
-  height: auto;
-  display: block;
-}
-
-.botoes-final {
-  display: flex;
-  gap: 15px;
-  margin-top: 50px;
-}
-
-.btn-voltar {
-  margin-top: 50px;
-  width: 100%;
-  padding: 14px;
-  background: #ff7a00;
-  color: white;
-  border: none;
-  font-size: 18px;
-  border-radius: 12px;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-}
-         
-.btn-voltar:hover {
-  background: #fde400;
-  color: rgb(2, 2, 2);
-}
-
-.btn-submit:hover {
-  background: #fde400;
-  color: rgb(2, 2, 2);
-}
-
-  </style>
+/* MODAL */
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:999}
+.modal-content{background:#fff;padding:20px;border-radius:12px;width:300px;text-align:center}
+.modal-content h3{margin-top:0}
+.modal-content button{margin-top:15px;padding:8px 16px;border:none;border-radius:6px;cursor:pointer}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="header-top">
-    <!-- ✅ TESTEIRA IMAGEM -->
- <header>
-  <img class="testeira"
-       src="https://raw.githubusercontent.com/CCN1989/Imagens/refs/heads/main/testeira%20ficha%20ind.png"
-       alt="Testeira Oficial">
-</header>
-
-  </div
-
-    <img src="https://github.com/CCN1989/Imagens/blob/main/12RT.png?raw=true">
-  </div>
+<img src="https://raw.githubusercontent.com/CCN1989/Imagens/refs/heads/main/testeira%20ficha%20ind.png">
 </header>
 
 <main>
 
-  <div class="section-title">Dados da Entidade</div>
-
-  <div class="category-box">
-    <table>
-      <tr>
-        <td>Entidade *</td><td><input required></td>
-        <td>Município *</td><td><input required></td>
-      </tr>
-      <tr>
-        <td>RT *</td><td><input required></td>
-        <td>Email *</td><td><input required></td>
-      </tr>
-      <tr>
-        <td>Patrão</td><td><input></td>
-        <td>WhatsApp *</td><td><input required></td>
-      </tr>
-      <tr>
-        <td>Responsável Inscrição *</td>
-        <td colspan="3"><input required></td>
-      </tr>
-    </table>
-  </div>
-
-</div>
-
-<!-- ✅ CHECKBOX REGULAMENTO -->
-<div class="regulamento-box">
-  <label>
-    <input type="checkbox" required>
-    Declaro que li e estou de acordo com o
-    <a href="REGULAMENTO.pdf" target="_blank">
-      Regulamento Oficial do Rodeio
-    </a>.
-  </label>
+<div class="section-title">Dados da Entidade</div>
+<div class="category-box">
+<table>
+<tr>
+<td>Entidade *</td><td><input id="entidade" required></td>
+<td>Município *</td><td><input id="municipio" required></td>
+</tr>
+<tr>
+<td>RT *</td><td><input id="rt" required></td>
+<td>Email *</td><td><input id="email" required></td>
+</tr>
+<tr>
+<td>Patrão</td><td><input id="patrao"></td>
+<td>Whats *</td><td><input id="whats" required></td>
+</tr>
+<tr>
+<td>Responsável *</td>
+<td colspan="3"><input id="responsavel" required></td>
+</tr>
+</table>
 </div>
 
 <div id="modalidades"></div>
 
-
-  <div id="modalidades"></div>
-
-  <div class="botoes-final">
-
-  <!-- ✅ BOTÃO ENVIAR -->
-  <button class="btn-submit" type="submit">
-    Enviar Inscrição
-  </button>
-
-  <!-- ✅ BOTÃO VOLTAR AO SITE -->
-  <a class="btn-voltar" href="https://www.ctgchamanativa.com.br" target="_blank">
-    Voltar ao Site
-  </a>
-
+<div class="botoes-final">
+<button class="btn-submit" id="btnEnviar" onclick="enviarInscricao()">
+Enviar Inscrição
+</button>
+<a class="btn-voltar" href="#">Voltar</a>
 </div>
-
 
 </main>
 
-<footer>
-  Sistema de incrição - CTG Chama Nativa © 2026 - dúvidas secretaria@ctgchamanativa.com.br
-</footer>
+<div class="modal" id="modalCategoria">
+  <div class="modal-content">
+    <h3>Selecionar categoria</h3>
+    <select id="selectCategoria"></select><br>
+    <button onclick="confirmarCategoria()">Confirmar</button>
+    <button onclick="fecharModal()">Cancelar</button>
+  </div>
+</div>
 
 <script>
-  const categorias = ["Pré-Mirim", "Mirim", "Juvenil", "Adulta", "Veterana", "Xirú"];
-  const LIMITE = 3;
+const URL_GS="https://script.google.com/macros/s/AKfycbzIXpSBVimm_981WIU0DvhUBODuSWBLDDH4KGm87NGL3kEnGaB4-rCiNjsxPB0-0AUP/exec";
+const LIMITE=3;
+let tipoAtual="";
 
-  const modalidades = [
-    { nome: "Declamação", id: "declamacao", tipo: "declamacao" },
-    { nome: "Intérprete Vocal", id: "vocal", tipo: "vocal" },
-    { nome: "Chula", id: "chula", tipo: "chula" },
-    { nome: "Danças Tradicionais (Par)", id: "tradicional", tipo: "tradicional" },
-    { nome: "Danças Gaúchas de Salão (Par)", id: "salao", tipo: "par" }
-  ];
+const categoriasPrendaPeao=[
+"Prenda Pré-Mirim","Peão Pré-Mirim",
+"Prenda Mirim","Peão Mirim",
+"Prenda Juvenil","Peão Juvenil",
+"Prenda Adulta","Peão Adulto",
+"Prenda Veterana","Peão Veterano",
+"Prenda Xirú","Peão Xirú"
+];
+const categoriasGerais=["Pré-Mirim","Mirim","Juvenil","Adulta","Veterana","Xirú"];
 
-  function criarCategoria(modId, categoria, tipo) {
+const modalidades=[
+{nome:"Declamação",tipo:"declamacao"},
+{nome:"Intérprete Vocal",tipo:"vocal"},
+{nome:"Chula",tipo:"chula"},
+{nome:"Danças Tradicionais (Par)",tipo:"tradicional"},
+{nome:"Danças Gaúchas de Salão (Par)",tipo:"par"}
+];
 
-    let colunas = "";
+const mapaModalidade={
+declamacao:"Declamação",
+vocal:"Intérprete Vocal",
+chula:"Chula",
+tradicional:"Danças Tradicionais (Par)",
+par:"Danças Gaúchas de Salão (Par)"
+};
 
-    if (tipo === "declamacao") {
-      colunas = `
-        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
-        <th>Peão</th><th>Nascimento</th><th>Cartão</th>
-        <th>Amadrinhador*</th>`;
-    }
+function criarTabela(m){
+return`
+<div class="section-title">${m.nome}</div>
+<div class="category-box">
+<table>
+<thead><tr>${cabecalho(m.tipo)}<th>Ação</th></tr></thead>
+<tbody id="${m.tipo}-body"></tbody>
+</table>
+<button class="btn-add" onclick="abrirModal('${m.tipo}')">+ Adicionar</button>
+</div>`;
+}
 
-    if (tipo === "vocal") {
-      colunas = `
-        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
-        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
-    }
+function cabecalho(tipo){
+if(tipo==="declamacao")return"<th>Categoria</th><th>Concorrente</th><th>Nasc.</th><th>Cartão</th><th>Amadrinhador</th>";
+if(tipo==="vocal"||tipo==="chula")return"<th>Categoria</th><th>Concorrente</th><th>Nasc.</th><th>Cartão</th>";
+if(tipo==="tradicional")return"<th>Categoria</th><th>Prenda</th><th>Nasc.</th><th>Cartão</th><th>Peão</th><th>Nasc.</th><th>Cartão</th><th>Dança</th>";
+if(tipo==="par")return"<th>Categoria</th><th>Prenda</th><th>Nasc.</th><th>Cartão</th><th>Peão</th><th>Nasc.</th><th>Cartão</th>";
+}
 
-    if (tipo === "chula") {
-      colunas = `
-        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
-    }
+function abrirModal(tipo){
+tipoAtual=tipo;
+const sel=document.getElementById("selectCategoria");
+sel.innerHTML="";
+const lista=(tipo==="declamacao"||tipo==="vocal")?categoriasPrendaPeao:categoriasGerais;
+lista.forEach(c=>{
+let o=document.createElement("option");
+o.value=c;o.textContent=c;
+sel.appendChild(o);
+});
+document.getElementById("modalCategoria").style.display="flex";
+}
+function fecharModal(){document.getElementById("modalCategoria").style.display="none"}
+function confirmarCategoria(){addRow(tipoAtual,selectCategoria.value);fecharModal()}
 
-    if (tipo === "par") {
-      colunas = `
-        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
-        <th>Peão</th><th>Nascimento</th><th>Cartão</th>`;
-    }
+function tornarObrigatorios(tr){
+tr.querySelectorAll("input").forEach(i=>i.required=true);
+}
 
-    if (tipo === "tradicional") {
-      colunas = `
-        <th>Prenda</th><th>Nascimento</th><th>Cartão</th>
-        <th>Peão</th><th>Nascimento</th><th>Cartão</th>
-        <th>Dança Tradicional*</th>`;
-    }
+function addRow(tipo,categoria){
+const tbody=document.getElementById(`${tipo}-body`);
+let total=0;
+[...tbody.rows].forEach(r=>{
+if(r.querySelector(".categoria").value===categoria)total++;
+});
+if(total>=LIMITE)return alert("Limite de 2 titulares + 1 suplente atingido.");
 
-    let box = document.createElement("div");
-    box.className = "category-box";
+const tr=document.createElement("tr");
+if(total===2)tr.classList.add("suplente");
+const cat=`<select class="categoria"><option>${categoria}</option></select>`;
+const del=`<button class="btn-remove" onclick="this.closest('tr').remove()">X</button>`;
 
-    box.innerHTML = `
-      <h3>${categoria}</h3>
-      <table>
-        <thead>
-          <tr>${colunas}<th>Ação</th></tr>
-        </thead>
-        <tbody id="${modId}-${categoria}-body"></tbody>
-      </table>
+if(tipo==="declamacao")
+tr.innerHTML=`<td>${cat}</td><td><input></td><td><input type="date"></td><td><input></td><td><select><option>Não</option><option>Sim</option></select></td><td>${del}</td>`;
+if(tipo==="vocal")
+tr.innerHTML=`<td>${cat}</td><td><input></td><td><input type="date"></td><td><input></td><td>${del}</td>`;
+if(tipo==="chula")
+tr.innerHTML=`<td>${cat}</td><td><input class="input-peao"></td><td><input type="date"></td><td><input></td><td>${del}</td>`;
+if(tipo==="tradicional")
+tr.innerHTML=`<td>${cat}</td><td><input class="input-prenda"></td><td><input type="date"></td><td><input></td>
+<td><input class="input-peao"></td><td><input type="date"></td><td><input></td><td><input class="input-danca"></td><td>${del}</td>`;
+if(tipo==="par")
+tr.innerHTML=`<td>${cat}</td><td><input class="input-prenda"></td><td><input type="date"></td><td><input></td>
+<td><input class="input-peao"></td><td><input type="date"></td><td><input></td><td>${del}</td>`;
 
-      <button class="btn-add"
-        onclick="addRow('${modId}','${categoria}','${tipo}')">
-        + Adicionar (até 2 titulares + 1 suplente)
-      </button>
-    `;
+tornarObrigatorios(tr);
+tbody.appendChild(tr);
+}
 
-    return box;
-  }
+function coletarInscricoes(){
+let lista=[];
+modalidades.forEach(m=>{
+const tbody=document.getElementById(`${m.tipo}-body`);
+[...tbody.rows].forEach(tr=>{
+let valores=[tr.querySelector(".categoria").value];
+tr.querySelectorAll("input,select").forEach((el,i)=>{
+if(i>0) valores.push(el.value);
+});
+lista.push({
+modalidade:mapaModalidade[m.tipo],
+valores:valores,
+suplente:tr.classList.contains("suplente")
+});
+});
+});
+return lista;
+}
 
-  function addRow(modId, categoria, tipo) {
+function enviarInscricao(){
+const btn=document.getElementById("btnEnviar");
+btn.disabled=true;
+btn.textContent="Enviando...";
+btn.style.cursor="wait";
+btn.style.opacity="0.7";
 
-    let tbody = document.getElementById(`${modId}-${categoria}-body`);
+const inscricoes=coletarInscricoes();
+if(!inscricoes.length){
+alert("Nenhuma inscrição adicionada.");
+restaurarBotao();
+return;
+}
 
-    if (tbody.rows.length >= LIMITE) {
-      alert("Limite máximo: 2 titulares + 1 suplente.");
-      return;
-    }
+fetch(URL_GS,{
+method:"POST",
+body:JSON.stringify({
+entidade:entidade.value,
+municipio:municipio.value,
+rt:rt.value,
+email:email.value,
+patrao:patrao.value,
+whats:whats.value,
+responsavel:responsavel.value,
+inscricoes:inscricoes
+})
+})
+.then(r=>r.text())
+.then(msg=>{
+alert(msg);
+location.reload();
+})
+.catch(()=>{
+alert("Erro no envio");
+restaurarBotao();
+});
 
-    let row = document.createElement("tr");
+function restaurarBotao(){
+btn.disabled=false;
+btn.textContent="Enviar Inscrição";
+btn.style.cursor="pointer";
+btn.style.opacity="1";
+}
+}
 
-    let isSuplente = (tbody.rows.length === 2);
-    if (isSuplente) row.classList.add("suplente");
-
-    let suplenteTag = isSuplente
-      ? `<div class="tag-suplente">SUPLENTE</div>`
-      : "";
-
-    let removerBtn = `<button class="btn-remove" onclick="removeRow(this)">X</button>`;
-
-    /* DECLAMAÇÃO */
-    if (tipo === "declamacao") {
-      row.innerHTML = `
-        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td><input class="input-peao" placeholder="Peão"></td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td><input required placeholder="Amadrinhador"></td>
-        <td>${removerBtn}</td>
-      `;
-    }
-
-    /* VOCAL */
-    if (tipo === "vocal") {
-      row.innerHTML = `
-        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td><input class="input-peao" placeholder="Peão"></td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td>${removerBtn}</td>
-      `;
-    }
-
-    /* CHULA */
-    if (tipo === "chula") {
-      row.innerHTML = `
-        <td><input class="input-peao" placeholder="Peão">${suplenteTag}</td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td>${removerBtn}</td>
-      `;
-    }
-
-    /* DANÇAS SALÃO */
-    if (tipo === "par") {
-      row.innerHTML = `
-        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td><input class="input-peao" placeholder="Peão"></td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td>${removerBtn}</td>
-      `;
-    }
-
-    /* DANÇAS TRADICIONAIS */
-    if (tipo === "tradicional") {
-      row.innerHTML = `
-        <td><input class="input-prenda" placeholder="Prenda">${suplenteTag}</td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td><input class="input-peao" placeholder="Peão"></td>
-        <td><input type="date"></td>
-        <td><input placeholder="Cartão"></td>
-
-        <td><input class="input-danca" required placeholder="Dança Tradicional"></td>
-
-        <td>${removerBtn}</td>
-      `;
-    }
-
-    tbody.appendChild(row);
-  }
-
-  function removeRow(btn) {
-    btn.closest("tr").remove();
-  }
-
-  /* Renderizar */
-  const container = document.getElementById("modalidades");
-
-  modalidades.forEach(mod => {
-    container.innerHTML += `<div class="section-title">${mod.nome}</div>`;
-
-    categorias.forEach(cat => {
-      container.appendChild(criarCategoria(mod.id, cat, mod.tipo));
-      addRow(mod.id, cat, mod.tipo);
-    });
-  });
+const cont=document.getElementById("modalidades");
+modalidades.forEach(m=>cont.innerHTML+=criarTabela(m));
 </script>
 
 </body>
