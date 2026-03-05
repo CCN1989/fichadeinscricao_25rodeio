@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -39,10 +40,32 @@ input,select{width:95%;padding:6px;border-radius:6px;border:1px solid #ccc}
 .modal-content{background:#fff;padding:20px;border-radius:12px;width:300px;text-align:center}
 .modal-content h3{margin-top:0}
 .modal-content button{margin-top:15px;padding:8px 16px;border:none;border-radius:6px;cursor:pointer}
+
+.loading-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255, 255, 255, 0.7);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:9999;
+color:rgb(2, 2, 2);
+font-family:Arial;
+text-align:center;
+}
 </style>
 </head>
 
 <body>
+
+<div class="loading-overlay" id="loading">
+    <h2 style="color: #ff7a00;">Processando Inscrição...</h2>
+    <p>Aguarde, estamos salvando os dados....</p>
+</div>    
 
 <header>
   <div class="header-top">
@@ -52,7 +75,7 @@ input,select{width:95%;padding:6px;border-radius:6px;border:1px solid #ccc}
        src="https://raw.githubusercontent.com/CCN1989/fichadeinscricao_25rodeio/refs/heads/main/testeira%20ficha%20ind.png"
        alt="Testeira Oficial">
 
-  </div
+ </div>
 
 
 </header>
@@ -108,7 +131,7 @@ Enviar Inscrição
 </div>
 
 <script>
-const URL_GS="https://script.google.com/macros/s/AKfycbxD7juSXIemIamta1zhdk43QpIEUuwTSwlfhq0V1OMLE_gPvHsNNoWbegkrmiscpXOVOA/exec";
+const URL_GS="https://script.google.com/macros/s/AKfycbzm0j_DMcuyblLaWXHLtWxyka27L_bYPmpaOZJxFxVx6kLPZOWSZIke1DcVOgdGrPApTw/exec";
 const LIMITE=3;
 let tipoAtual="";
 
@@ -226,21 +249,34 @@ return lista;
 }
 
 function enviarInscricao(){
+
 const btn=document.getElementById("btnEnviar");
+
+/* VALIDA DADOS DA ENTIDADE */
+if(!validarDadosEntidade()){
+return;
+}
+
+const inscricoes=coletarInscricoes();
+
+if(!inscricoes.length){
+alert("Nenhuma inscrição adicionada.");
+return;
+}
+
+/* MOSTRA LOADING SOMENTE DEPOIS DA VALIDAÇÃO */
+document.getElementById("loading").style.display="flex";
+
 btn.disabled=true;
 btn.textContent="Enviando...";
 btn.style.cursor="wait";
 btn.style.opacity="0.7";
 
-const inscricoes=coletarInscricoes();
-if(!inscricoes.length){
-alert("Nenhuma inscrição adicionada.");
-restaurarBotao();
-return;
-}
-
 fetch(URL_GS,{
 method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
 body:JSON.stringify({
 entidade:entidade.value,
 municipio:municipio.value,
@@ -259,8 +295,9 @@ location.reload();
 })
 .catch(()=>{
 alert("Erro no envio");
-restaurarBotao();
+document.getElementById("loading").style.display="none";
 });
+
 
 function restaurarBotao(){
 btn.disabled=false;
@@ -272,17 +309,50 @@ btn.style.opacity="1";
 
 const cont=document.getElementById("modalidades");
 modalidades.forEach(m=>cont.innerHTML+=criarTabela(m));
+
+function validarDadosEntidade(){
+
+if(!entidade.value.trim()){
+alert("Informe o nome da entidade.");
+entidade.focus();
+return false;
+}
+
+if(!municipio.value.trim()){
+alert("Informe o município.");
+municipio.focus();
+return false;
+}
+
+if(!rt.value){
+alert("Selecione a RT.");
+rt.focus();
+return false;
+}
+
+if(!email.value.trim()){
+alert("Informe o e-mail.");
+email.focus();
+return false;
+}
+
+if(!whats.value.trim()){
+alert("Informe o WhatsApp.");
+whats.focus();
+return false;
+}
+
+if(!responsavel.value.trim()){
+alert("Informe o responsável.");
+responsavel.focus();
+return false;
+}
+
+return true;
+
+}
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
