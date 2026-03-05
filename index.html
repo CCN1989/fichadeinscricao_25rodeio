@@ -128,7 +128,7 @@ Enviar Inscrição
 </div>
 
 <script>
-const URL_GS="https://script.google.com/macros/s/AKfycbxZY0F99BliJg8OmUkKDc6Jt9ALGpM1qsjFoc_oseQE9Mul8ksbGEWSiC1tth0_YtJtTg/exec";
+const URL_GS="https://script.google.com/macros/s/AKfycbwCZQ8OpHO1JrAi8UWeIbUR_o9AciaplfBExb0g9up7jP1NBJvDAX99KHQ9OJYw_l41PQ/exec";
 const LIMITE=3;
 let tipoAtual="";
 
@@ -269,12 +269,8 @@ btn.textContent="Enviando...";
 btn.style.cursor="wait";
 btn.style.opacity="0.7";
 
-fetch(URL_GS,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
+/* MONTA PAYLOAD */
+const payload={
 entidade:entidade.value,
 municipio:municipio.value,
 rt:rt.value,
@@ -283,7 +279,15 @@ patrao:patrao.value,
 whats:whats.value,
 responsavel:responsavel.value,
 inscricoes:inscricoes
-})
+};
+
+/* ENVIO COMPATÍVEL COM APPS SCRIPT */
+const params=new URLSearchParams();
+params.append("dados",JSON.stringify(payload));
+
+fetch(URL_GS,{
+method:"POST",
+body:params
 })
 .then(r=>r.text())
 .then(msg=>{
@@ -293,8 +297,8 @@ location.reload();
 .catch(()=>{
 alert("Erro no envio");
 document.getElementById("loading").style.display="none";
+restaurarBotao();
 });
-
 
 function restaurarBotao(){
 btn.disabled=false;
@@ -302,6 +306,7 @@ btn.textContent="Enviar Inscrição";
 btn.style.cursor="pointer";
 btn.style.opacity="1";
 }
+
 }
 
 const cont=document.getElementById("modalidades");
@@ -353,6 +358,7 @@ return true;
 
 </body>
 </html>
+
 
 
 
