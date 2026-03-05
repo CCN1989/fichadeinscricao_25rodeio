@@ -68,15 +68,12 @@ input,select{width:95%;padding:6px;border-radius:6px;border:1px solid #ccc}
 </tr>
 <tr>
 <td>RT *</td>
-<td>
-  <select id="rt" required>
-    <option value="">Selecione a RT</option>
-    <script>
-      for (let i = 1; i <= 30; i++) {
-        document.write(`<option value="${i}ª RT">${i}ª RT</option>`);
-      }
-  </select>
-</td>
+                    <td>
+                        <select id="rt" required>
+                            <option value="">Selecione</option>
+                            <script>for(let i=1; i<=30; i++) document.write(`<option>${i}ª RT</option>`);</script>
+                        </select>
+                    </td>
 <td>Email *</td><td><input id="email" required></td>
 </tr>
 <tr>
@@ -279,6 +276,7 @@ modalidades.forEach(m=>cont.innerHTML+=criarTabela(m));
 
 </body>
 </html>
+
 
 
 
