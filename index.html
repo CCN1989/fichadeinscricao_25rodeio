@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha de Inscrição</title>
+<title>Ficha de Inscrição Individuais - 25º Rodeio - CTG Chama Nativa</title>
 
 <style>
 header{
@@ -282,16 +282,17 @@ inscricoes:inscricoes
 };
 
 /* ENVIO COMPATÍVEL COM APPS SCRIPT */
-const params=new URLSearchParams();
-params.append("dados",JSON.stringify(payload));
+
+const formData = new FormData();
+formData.append("dados", JSON.stringify(payload));
 
 fetch(URL_GS,{
 method:"POST",
-body:params
+body:formData
 })
 .then(r=>r.text())
 .then(msg=>{
-alert(msg);
+alert("Inscrição enviada com sucesso!");
 location.reload();
 })
 .catch(()=>{
@@ -358,6 +359,7 @@ return true;
 
 </body>
 </html>
+
 
 
 
