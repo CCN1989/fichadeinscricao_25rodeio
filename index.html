@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha de Inscrição</title>
+<title>Ficha de Inscrição Individuais - 25º Rodeio - CTG Chama Nativa</title>
 
 <style>
 header{
@@ -111,7 +111,7 @@ text-align:center;
 </header>
 
 <main>
-
+<form id="formInscricao">
 <div class="section-title">Dados da Entidade</div>
 <div class="category-box">
 <table>
@@ -159,7 +159,7 @@ ENVIAR INSCRIÇÃO
 <a class="btn-voltar" href="https://www.ctgchamanativa.com.br">VOLTAR AO SITE</a>
 </div>
 
-
+</form>
 </main>
 
 <div class="modal" id="modalCategoria">
@@ -184,7 +184,7 @@ let tipoAtual="";
 const encerramento = new Date('2026-04-12T23:59:59-03:00');
 function atualizarContador() {
   const diff = encerramento - new Date();
-  if (diff <= 0) { document.getElementById('regulamento-box').style.display='none'; return; }
+  if (diff <= 0) { document.getElementById('formInscricao').style.display='none'; return; }
   const d = Math.floor(diff/86400000); const h = Math.floor(diff/3600000)%24;
   const m = Math.floor(diff/60000)%60; const s = Math.floor(diff/1000)%60;
   document.getElementById('tempoRestante').innerText = `Encerra em: ${d}d ${h}h ${m}m ${s}s`;
