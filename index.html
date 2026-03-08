@@ -19,6 +19,9 @@ height:auto;
 display:block;
 }
 
+  button{
+user-select:none;
+}
 
 body{font-family:Arial;background:#fff7f0;margin:0}
 header img{width:100%}
@@ -93,6 +96,27 @@ text-align:center;
   transform: scale(1.2);
   margin-right: 8px;
 }
+
+  #contadorInscricao{
+width:100%;
+background:#8B0000;
+color:white;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+padding:15px;
+letter-spacing:1px;
+}
+
+#inscricoesEncerradas{
+text-align:center;
+font-size:40px;
+font-weight:bold;
+color:#8B0000;
+margin-top:60px;
+display:none;
+}
+  
 </style>
 </head>
 
@@ -107,9 +131,13 @@ text-align:center;
   <img class="testeira"
        src="https://raw.githubusercontent.com/CCN1989/fichadeinscricao_25rodeio/refs/heads/main/testeira%20ficha%20ind.png"
        alt="Testeira Oficial">
-    
+    <div id="contadorInscricao">
+⏳ Inscrições encerram em: <span id="tempo"></span>
+</div>
 </header>
-
+<div id="inscricoesEncerradas">
+INSCRIÇÕES ENCERRADAS
+</div>
 <main>
 <form id="formInscricao">
 <div class="section-title">Dados da Entidade</div>
@@ -142,9 +170,11 @@ text-align:center;
 <!-- ✅ CHECKBOX REGULAMENTO -->
 <div class="regulamento-box">
   <label>
-    <input type="checkbox" required>
+    <input type="checkbox" id="checkRegulamento" required disabled>
     Declaro que li e estou de acordo com o
-    <a href="https://drive.google.com/uc?export=download&id=1qlSOrR6lkcLnH1dS_6An4OESMQp7BjH_" target="_blank">
+    <a href="https://drive.google.com/uc?export=download&id=1qlSOrR6lkcLnH1dS_6An4OESMQp7BjH_" 
+target="_blank" 
+onclick="liberarCheck()">
       Regulamento Oficial do Rodeio
     </a>.
   </label>
@@ -176,6 +206,39 @@ ENVIAR INSCRIÇÃO
 </footer>
 
 <script>
+
+const dataLimite = new Date("2026-02-20T23:59:59").getTime(); // ALTERE A DATA
+
+const contador = setInterval(function(){
+
+const agora = new Date().getTime();
+const distancia = dataLimite - agora;
+
+if(distancia < 0){
+
+clearInterval(contador);
+
+document.getElementById("contadorInscricao").style.display="none";
+document.querySelector("form").style.display="none";
+document.getElementById("inscricoesEncerradas").style.display="block";
+
+return;
+
+}
+
+const dias = Math.floor(distancia / (1000*60*60*24));
+const horas = Math.floor((distancia % (1000*60*60*24)) / (1000*60*60));
+const minutos = Math.floor((distancia % (1000*60*60)) / (1000*60));
+const segundos = Math.floor((distancia % (1000*60)) / 1000);
+
+document.getElementById("tempo").innerHTML =
+dias+"d "+
+horas+"h "+
+minutos+"m "+
+segundos+"s";
+
+},1000);
+  
 const URL_GS="https://script.google.com/macros/s/AKfycbwGhY0R47aXDyN0f0Qn8_7_3Hkd3KkARkaCGou965upMBdKfKpsJ0hv-u_jOYnvccyNSA/exec";
 const LIMITE=3;
 let tipoAtual="";
@@ -215,7 +278,9 @@ return`
 <thead><tr>${cabecalho(m.tipo)}<th>Ação</th></tr></thead>
 <tbody id="${m.tipo}-body"></tbody>
 </table>
-<button class="btn-add" onclick="abrirModal('${m.tipo}')">+ Adicionar</button>
+<button type="button" class="btn-add" onclick="abrirModal('${m.tipo}')">
++ Adicionar
+</button>
 </div>`;
 }
 
@@ -256,7 +321,7 @@ if(total>=LIMITE)return alert("Limite de 2 titulares + 1 suplente atingido.");
 const tr=document.createElement("tr");
 if(total===2)tr.classList.add("suplente");
 const cat=`<select class="categoria"><option>${categoria}</option></select>`;
-const del=`<button class="btn-remove" onclick="this.closest('tr').remove()">X</button>`;
+const del=`<button type="button" class="btn-remove" onclick="this.closest('tr').remove()">X</button>`;
 
 if(tipo==="declamacao")
 tr.innerHTML=`<td>${cat}</td><td><input></td><td><input type="date"></td><td><input></td><td><select><option>Não</option><option>Sim</option></select></td><td>${del}</td>`;
@@ -398,10 +463,17 @@ return true;
 
 }
 
+function liberarCheck(){
+setTimeout(()=>{
+document.getElementById("checkRegulamento").disabled=false;
+},500);
+}  
+  
 </script>
 
 </body>
 </html>
+
 
 
 
