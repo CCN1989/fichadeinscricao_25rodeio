@@ -40,7 +40,7 @@ input,select{width:95%;padding:6px;border-radius:6px;border:1px solid #ccc}
 .btn-submit:hover,.btn-voltar:hover{background:#ffd24d;color:#000;transition:0.2s}
 .accordion-btn { width: 100%; background: #fff; border: 2px solid #ff7a00; color: #ff7a00; padding: 15px; text-align: left; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.2s; }
 .accordion-btn:hover { background: #fff5eb; }
-
+#contador { background: #ff7a00; color: #fff; text-align: center; padding: 14px; font-weight: bold; }
 /* MODAL */
 .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:999}
 .modal-content{background:#fff;padding:20px;border-radius:12px;width:300px;text-align:center}
@@ -107,6 +107,7 @@ text-align:center;
   <img class="testeira"
        src="https://raw.githubusercontent.com/CCN1989/fichadeinscricao_25rodeio/refs/heads/main/testeira%20ficha%20ind.png"
        alt="Testeira Oficial">
+       <div id="contador">⏳ <span id="tempoRestante"></span></div>
 </header>
 
 <main>
@@ -178,6 +179,17 @@ ENVIAR INSCRIÇÃO
 const URL_GS="https://script.google.com/macros/s/AKfycbwGhY0R47aXDyN0f0Qn8_7_3Hkd3KkARkaCGou965upMBdKfKpsJ0hv-u_jOYnvccyNSA/exec";
 const LIMITE=3;
 let tipoAtual="";
+
+// Contador
+const encerramento = new Date('2026-04-12T23:59:59-03:00');
+function atualizarContador() {
+  const diff = encerramento - new Date();
+  if (diff <= 0) { document.getElementById('regulamento-box').style.display='none'; return; }
+  const d = Math.floor(diff/86400000); const h = Math.floor(diff/3600000)%24;
+  const m = Math.floor(diff/60000)%60; const s = Math.floor(diff/1000)%60;
+  document.getElementById('tempoRestante').innerText = `Encerra em: ${d}d ${h}h ${m}m ${s}s`;
+}
+setInterval(atualizarContador, 1000); atualizarContador();
 
 const categoriasPrendaPeao=[
 "Prenda Pré-Mirim","Peão Pré-Mirim",
@@ -400,7 +412,6 @@ return true;
 
 </body>
 </html>
-
 
 
 
