@@ -396,17 +396,18 @@ responsavel:responsavel.value,
 inscricoes:inscricoes
 })
 })
-  
+
 .then(r=>r.text())
 .then(msg=>{
 alert(msg);
 location.reload();
 })
-.catch(()=>{
-alert("Erro no envio");
-document.getElementById("loading").style.display="none";
-});
 
+.catch(()=>{
+alert("Erro ao enviar inscrição.");
+document.getElementById("loading").style.display="none";
+restaurarBotao();
+});
 
 function restaurarBotao(){
 btn.disabled=false;
@@ -471,6 +472,7 @@ document.getElementById("checkRegulamento").disabled=false;
 
 </body>
 </html>
+
 
 
 
