@@ -385,9 +385,6 @@ btn.style.opacity="0.7";
 
 fetch(URL_GS,{
 method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
 body:JSON.stringify({
 entidade:entidade.value,
 municipio:municipio.value,
@@ -399,6 +396,7 @@ responsavel:responsavel.value,
 inscricoes:inscricoes
 })
 })
+  
 .then(r=>r.text())
 .then(msg=>{
 alert(msg);
@@ -473,6 +471,7 @@ document.getElementById("checkRegulamento").disabled=false;
 
 </body>
 </html>
+
 
 
 
